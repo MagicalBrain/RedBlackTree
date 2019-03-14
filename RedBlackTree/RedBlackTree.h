@@ -38,4 +38,15 @@ struct RBTree
 	RBTNode *root;
 };
 
+RBTNode* newRBTNode(KeyType x, RBTNode* left, RBTNode*right,int colour)
+{
+	RBTNode *t;
+	t = (RBTNode*)malloc(sizeof(RBTNode));
+	t->data = x;
+	t->left = left;
+	t->right = right;
+	t->colour = colour;
+	return t;
+}
+
 //void reLink(RBTree &T, RBTNode *oldp, RBTNode *newp, LStack &p);
