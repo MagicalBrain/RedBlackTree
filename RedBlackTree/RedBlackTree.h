@@ -1,3 +1,13 @@
+/*
+* 简体中文
+*
+* 作者：HRL
+* 日期：20190314
+* 描述：这里是红黑树的定义与实现
+*
+* English
+*
+*/
 #pragma once
 #include <iostream>
 //#include "RBTreeLStack.h"

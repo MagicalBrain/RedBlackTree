@@ -1,3 +1,13 @@
+/*
+* 简体中文
+*
+* 作者：HRL
+* 日期：20190314
+* 描述：这里是对于红黑树为对象的链栈的定义与基本操作实现
+*
+* English
+*
+*/
 #pragma once
 #include <iostream>
 #include "RedBlackTree.h"

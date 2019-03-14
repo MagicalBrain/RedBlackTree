@@ -1,3 +1,13 @@
+/*
+* 简体中文
+*
+* 作者：HRL
+* 日期：20190314
+* 描述：这里是一些红黑树操作函数的实现
+*
+* English
+*
+*/
 #pragma once
 #include "RedBlackTree.h"
 #include "RBTreeLStack.h"
@@ -5,6 +15,13 @@
 void out()
 {
 	cout << "123" << endl;
+}
+
+
+bool find(KeyType x,RBTree T)
+{
+	RBTNode *t = T.root;
+
 }
 
 
@@ -25,4 +42,9 @@ void reLink(RBTree &T, RBTNode *oldp, RBTNode *newp, LStack &p)
 			parent->right = newp;
 		push(*parent, p);
 	}
+}
+
+void insert(KeyType x, LStack p)
+{
+
 }
