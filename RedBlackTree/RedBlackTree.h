@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+//#include "RBTreeLStack.h"
 
 using namespace std;
 
@@ -14,22 +15,16 @@ typedef int Status;
 
 #define KeyType int
 
-struct RBTNode
+typedef struct RBTNode
 {
 	KeyType data;
 	RBTNode *left;
 	RBTNode *right;
 	int colour;
-};
+}RBTNode;
 
 struct RBTree
 {
 	RBTNode *root;
 };
 
-//reLink函数
-////这里还得用到链栈
-void reLink(RBTNode *oldp,RBTNode *newp)
-{
-	
-}
