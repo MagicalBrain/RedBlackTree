@@ -28,3 +28,4 @@ struct RBTree
 	RBTNode *root;
 };
 
+//void reLink(RBTree &T, RBTNode *oldp, RBTNode *newp, LStack &p);

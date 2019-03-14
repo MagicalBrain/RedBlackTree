@@ -13,7 +13,7 @@ using namespace std;
 #define ERROR 0
 //#define OVERFLOW -1
 
-typedef int Status;
+//typedef int Status;
 
 //链栈结点定义
 typedef struct LSNode
