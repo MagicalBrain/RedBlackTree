@@ -203,14 +203,168 @@ void insert(KeyType x, LStack &p,RBTree &L)
 
 
 //removeRebanlance函数
-void removeRebanlance()
+void removeRebanlance(RBTNode *t,RBTree &T,LStack &p)
 {
+	RBTNode *parent, *sibling, *rootOfTree,*t0 = T.root;
 
+	pop(*parent, p);
+	*rootOfTree = *parent;
+
+	while (parent != NULL)
+	{
+		//处理L0、R0或情况三
+		if (parent->left == t)
+			sibling = parent->right;
+		else
+			sibling = parent->left;
+			
+
+		if (sibling->colour == 0)	//情况二
+		{
+			sibling->colour = 1;
+			parent->colour = 0;
+			if (parent->left == t)
+				RR(parent);
+			else
+				LL(parent);
+			reLink(T, rootOfTree, parent, p);
+			push(*parent, p);
+			parent = rootOfTree;
+		}
+		else
+		{
+			if ((sibling->left == NULL || sibling->left->colour == 1) && (sibling->right == NULL || sibling->right->colour == 1))
+				//L0或R0
+			{
+				sibling->colour = 0;
+				if (parent->colour == 0)
+				{
+					parent->colour = 1;
+					return;
+				}
+				else
+				{
+					t = parent;
+					if (t == T.root)
+						return;
+					else
+					{
+						pop(*parent, p);
+						*rootOfTree = *parent;
+					}
+				}
+			}
+			else
+				break;
+		}
+	}
+
+	
+	if (parent->left == t)
+	{
+		if (sibling->left != NULL && sibling->left->colour == 0)
+			//R1L或R2
+		{
+			sibling->left->colour = parent->colour;
+			parent->colour = 1;
+			RL(parent);
+			reLink(T, rootOfTree, parent, p);
+
+		}
+		else
+		{
+			sibling->colour = parent->colour;
+			sibling->right->colour = 1;
+			parent->colour = 1;
+			RR(parent);
+			reLink(T, rootOfTree, parent, p);
+
+		}
+	}
+	else
+	{
+		if (sibling->right != NULL && sibling->right->colour == 0)
+			//L1R 或 L2
+		{
+			sibling->right->colour = parent->colour;
+			parent->colour = 1;
+			LR(parent);
+			reLink(T, rootOfTree, parent, p);
+
+		}
+		else
+		{
+			sibling->colour = parent->colour;
+			sibling->left->colour = 1;
+			parent->colour = 1;
+			LL(parent);
+			reLink(T, rootOfTree, parent, p);
+		}
+	}
 }
 
 
 //remove函数
-void remove()
+void remove(KeyType x,RBTree &T,LStack &p)
 {
+	RBTNode *t = T.root;
+	RBTNode *odd;
+	RBTNode *parent = NULL;
 
+	while (t!= NULL && t->data != x)
+	{
+		push(*t, p);
+		if (t->data > x)
+			t = t->left;
+		else
+			t = t->right;
+
+	}
+
+	if (t == NULL)
+		return;
+
+	if (t->left != NULL && t->right != NULL)
+	{
+		push(*t, p);
+		odd = t;
+		t = t->right;
+		while (t->left != NULL)
+		{
+			push(*t, p);
+			t = t->left;
+		}
+		odd->data = t->data;
+	}
+
+	if (t == T.root)
+	{
+		T.root = (t->left ? t->left : t->right);
+		if (T.root != NULL)
+			T.root->colour = 1;
+		return;
+	}
+
+	pop(*parent, p);
+	odd = t;
+	t = (t->left ? t->left : t->right);
+	if (parent->left == odd)
+		parent->left = t;
+	else
+		parent->right = t;
+
+	if (odd->colour == 0)
+	{
+		return;
+	}
+
+	if (t != NULL)
+	{
+		t->colour = 1;
+		return;
+
+	}
+
+	push(*parent, p);
+	removeRebanlance(t, T, p);
 }
